@@ -1,6 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Nav from '../components/Nav/Nav'
+import SignUp from '../pages/Auth/SignUp'
 //Services
 
 //Pages + Components
@@ -11,6 +12,7 @@ const App = () => {
     <div className="App">
       <Nav />
       <Routes>
+        
         <Route 
           path='/'
           element={<h1>Landing</h1>}
@@ -29,6 +31,11 @@ const App = () => {
         <Route  
           path='/posts'
           element={<h1>Posts</h1>}
+        />
+
+        <Route 
+          path='/signup'
+          element={<SignUp />}
         />
 
       </Routes>
