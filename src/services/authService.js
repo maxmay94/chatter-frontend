@@ -1,5 +1,5 @@
 import * as tokenService from './tokenService'
-const BASE_URL = `${process.env.REACT_APP_BACKEND_SERVER_URL}/api/auth`
+const BASE_URL = '/api/auth'
 
 async function signup(user) {
   try {
@@ -16,6 +16,7 @@ async function signup(user) {
       throw new Error(json.err)
     }
   } catch (err) {
+    console.log(err)
     throw err
   }
 }
@@ -47,27 +48,4 @@ async function login(credentials) {
   }
 }
 
-async function changePassword(credentials) {
-  try {
-    const res = await fetch(`${BASE_URL}/changePassword`, {
-      method: 'POST',
-      headers: new Headers({ 
-        'Content-Type': 'application/json', 
-        Authorization: `Bearer ${tokenService.getToken()}` 
-      }),
-      body: JSON.stringify(credentials),
-    })
-    const json = await res.json()
-    if (json.token) {
-      tokenService.removeToken()
-      tokenService.setToken(json.token)
-    }
-    if (json.err) {
-      throw new Error(json.err)
-    }
-  } catch(err) {
-    throw err
-  }
-}
-
-export { signup, getUser, logout, login, changePassword }
+export { signup, getUser, logout, login }
