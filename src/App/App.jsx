@@ -1,18 +1,33 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav/Nav'
 import SignUp from '../pages/Auth/SignUp'
 //Services
+import { getUser, logout } from '../services/authService'
 
 //Pages + Components
 
 const App = () => {
 
+  const navigate = useNavigate()
+  const [user, setUser] = useState(getUser())
+
+  const handleSignupOrLogin = async () => {
+    const currentUser = getUser()
+    setUser(currentUser)
+  }
+
+  const handleLogout = () => {
+    logout()
+    setUser(null)
+    navigate('/')
+  }
+
   return (
     <div className="App">
-      <Nav />
+      <Nav user={user} handleLogout={handleLogout} />
       <Routes>
-        
+
         <Route 
           path='/'
           element={<h1>Landing</h1>}
@@ -25,7 +40,7 @@ const App = () => {
 
         <Route 
           path='/signup'
-          element={<h1>Sign Up</h1>}
+          element={<SignUp handleSignupOrLogin={handleSignupOrLogin}/>}
         />
 
         <Route  

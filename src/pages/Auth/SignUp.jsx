@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../../styles/Auth.css'
-
+import { useNavigate } from 'react-router-dom'
 // Assets
 import cat from '../../assets/avatars/cat.png' //<= included in starter code
 
@@ -9,7 +9,7 @@ import { signup } from '../../services/authService'
 // we will import a sign up service momentarily
 
 const SignUp = (props) => {
-
+  const navigate = useNavigate()
   const [msg, setMsg] = useState('')
   const [formData, setFormData] = useState({
     name: '',
@@ -17,6 +17,26 @@ const SignUp = (props) => {
     password: '',
     avatar: cat
   })
+
+  const handleChange = (e) => {
+    setMsg('')
+    setFormData({ ...formData, [e.target.name]: e.target.value})
+  }
+  // What is setFormData doing here?
+  // a. maintain previous data added to state
+  // b. use the <input> name attribute to find a key in the state object
+  // c. use the <input> value attribute to assign a value to that key
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      await signup(formData)
+      props.handleSignupOrLogin()
+      navigate('/posts')
+    } catch (err) {
+      setMsg(err.message)
+    }
+  }
 
   return (
     <div className="signup-page">
@@ -28,14 +48,16 @@ const SignUp = (props) => {
             <h1>Create an Account</h1>
 						<h3>Social media for developers</h3>
           </div>
-          <form className="register-form">
+          <form className="register-form" onSubmit={handleSubmit}>
 
             <input 
               required
               name="name"
               type="text"
               autoComplete='off'
-              placeholder='Username' 
+              placeholder='Username'
+              onChange={handleChange}
+              value={formData.name}
             />
             <input 
               required
@@ -43,6 +65,8 @@ const SignUp = (props) => {
               type="email"
               autoComplete='off'
               placeholder='Email' 
+              onChange={handleChange}
+              value={formData.email}
             />
             <input 
               required
@@ -50,6 +74,8 @@ const SignUp = (props) => {
               type="password"
               autoComplete='off'
               placeholder='Password' 
+              onChange={handleChange}
+              value={formData.password}
             />
 
             <button
