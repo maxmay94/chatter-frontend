@@ -3,10 +3,9 @@ import '../../styles/Auth.css'
 import { useNavigate } from 'react-router-dom'
 // Assets
 import cat from '../../assets/avatars/cat.png' //<= included in starter code
-
-// Services
+import AvatarSelection from './AvatarSelection'
 import { signup } from '../../services/authService'
-// we will import a sign up service momentarily
+
 
 const SignUp = (props) => {
   const navigate = useNavigate()
@@ -17,6 +16,11 @@ const SignUp = (props) => {
     password: '',
     avatar: cat
   })
+  const [popup, setPopup] = useState(false)
+
+  const handlePopup = () => {
+    setPopup(!popup)
+  }
 
   const handleChange = (e) => {
     setMsg('')
@@ -40,6 +44,14 @@ const SignUp = (props) => {
 
   return (
     <div className="signup-page">
+      {
+        popup &&
+        <AvatarSelection 
+          formData={formData}
+          handleChange={handleChange}
+          handlePopup={handlePopup}
+        />
+      }
 
       <div className='left-container'>
 
@@ -82,6 +94,7 @@ const SignUp = (props) => {
               autoComplete="off"
               id="avatar-button"
               type="button"
+              onClick={handlePopup}
             >Select Avatar</button>
 
             <button

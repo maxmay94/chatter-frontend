@@ -23,6 +23,7 @@ const App = () => {
     navigate('/')
   }
 
+
   return (
     <div className="App">
       <Nav user={user} handleLogout={handleLogout} />
