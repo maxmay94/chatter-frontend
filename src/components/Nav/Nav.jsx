@@ -17,7 +17,6 @@ const Nav = (props) => {
             <NavLink to='/signin'>Sign In</NavLink>
           </>
       }
-
     </nav>
   )
 }

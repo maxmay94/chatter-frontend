@@ -7,6 +7,7 @@ import SignIn from '../pages/Auth/SignIn'
 import { getUser, logout } from '../services/authService'
 
 //Pages + Components
+import PostList from '../pages/PostList'
 
 const App = () => {
 
@@ -47,14 +48,12 @@ const App = () => {
 
         <Route  
           path='/posts'
-          element={<h1>Posts</h1>}
+          element={<PostList />}
         />
-
-        <Route 
+        {/* <Route 
           path='/signup'
           element={<SignUp />}
-        />
-
+        /> */}
       </Routes>
     </div>
   )

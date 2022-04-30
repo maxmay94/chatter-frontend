@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import '../../styles/Auth.css'
 import { useNavigate, Link } from 'react-router-dom'
-import cat from '../../assets/avatars/cat.png'
+import AvatarSelection from './AvatarSelection'
 import Animation from '../../components/misc/Animation'
 import coder from '../../assets/animation/coder.json'
-import AvatarSelection from './AvatarSelection'
+import cat from '../../assets/avatars/cat.png'
 import { signup } from '../../services/authService'
 
 const SignUp = (props) => {
@@ -26,10 +26,6 @@ const SignUp = (props) => {
     setMsg('')
     setFormData({ ...formData, [e.target.name]: e.target.value})
   }
-  // What is setFormData doing here?
-  // a. maintain previous data added to state
-  // b. use the <input> name attribute to find a key in the state object
-  // c. use the <input> value attribute to assign a value to that key
 
   const handleSubmit = async (e) => {
     e.preventDefault()
