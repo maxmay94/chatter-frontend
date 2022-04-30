@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getAllPosts } from '../services/postService'
+import PostCard from '../components/Post/PostCard'
+import Header from '../components/misc/Header'
 
 const PostList = () => {
   const[posts, setPosts] = useState([])
@@ -7,14 +9,23 @@ const PostList = () => {
   useEffect(() => {
     const fetchAllPosts = async () => {
       const postData = await getAllPosts()
-      console.log(postData)
+      setPosts(postData)
     }
     fetchAllPosts()
+    return () => { setPosts([]) }
   }, [])
 
   return (
     <div className='layout'>
-      <h1>Posts!</h1>
+      <Header />
+      {
+        posts?.map((post) => {
+          <PostCard 
+            post={post}
+            key={post._id}
+          />
+        })
+      }
     </div>
   )
 }
