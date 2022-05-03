@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { getAllPosts } from '../services/postService'
+import { getAllPosts, updatePost } from '../services/postService'
 import PostCard from '../components/Post/PostCard'
 import Header from '../components/misc/Header'
 
-const PostList = () => {
+const PostList = (props) => {
   const[posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -15,6 +15,15 @@ const PostList = () => {
     return () => { setPosts([]) }
   }, [])
 
+  const markPostResolved = async (postId) => {
+    try {
+      const updatedPost = await updatePost(postId)
+			setPosts(posts.map((post) => (post._id === postId ? updatedPost : post)))
+    } catch (error) {
+      throw error
+    }
+  }
+
   return (
     <div className='layout'>
       <Header />
@@ -23,6 +32,8 @@ const PostList = () => {
           <PostCard 
             post={post}
             key={post._id}
+            user={props.user}
+            markPostResolved={markPostResolved}
           />
         })
       }

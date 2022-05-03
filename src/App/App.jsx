@@ -49,7 +49,7 @@ const App = () => {
 
         <Route  
           path='/posts'
-          element={<PostList />}
+          element={<PostList  user={user}/>}
         />
 
         <Route 
