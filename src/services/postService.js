@@ -26,6 +26,17 @@ export const updatePost = async (postId) => {
   }
 }
 
+export const deletePost = async (postId) => {
+  try {
+    await fetch(`${BASE_URL}${postId}`, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + tokenService.getToken() }
+    })
+  } catch (error) {
+    throw error
+  }
+}
+
 export const createPost = async (post) => {
   try {
     const res = await fetch(BASE_URL, {
