@@ -1,24 +1,33 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import '../../styles/Card.css'
 import PostActions from './PostActions'
+import UserCard from '../misc/UserCard'
+import Codeblock from '../Code/Codeblock'
 
 const PostCard = (props) => {
   return (
     <div className="post-card">
 
       <div className="card-header">
+        <UserCard profile={props.post.added_by}/>
         <PostActions {...props}/>
       </div>
 
       <div className="question-container">
-        <p>{props.post.question}</p>
+        <p> {props.post.is_resolved && '[RESOLVED]'} {props.post.question}</p>
       </div>
 
       <div className="code-container">
-        <p>{props.post.codeblock}</p>
+        {
+          props.post.codeblock &&
+          <Codeblock codeblock={props.post.codeblock} />
+        }
       </div>
 
-      <div className="comment-link"></div>
+      <div className="comment-link">
+        <Link to={`/posts/${props.post._id}`}>View Comments</Link>
+      </div>
 
     </div>
   )

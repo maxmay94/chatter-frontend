@@ -30,6 +30,7 @@ function logout() {
 }
 
 async function login(credentials) {
+  console.log(credentials)
   try {
     const res = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
