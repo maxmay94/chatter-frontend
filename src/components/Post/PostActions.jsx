@@ -2,7 +2,6 @@ import React from 'react'
 import '../../styles/Card.css'
 
 const PostActions = (props) => {
-  console.log(props)
   const authorId = props.post.added_by?._id ? props.post.added_by._id : props.post.added_by
   const isAuthor = props.user?.profile === authorId
 
@@ -14,7 +13,10 @@ const PostActions = (props) => {
           onClick={() => props.markPostResolved(props.post._id)}
         >Resolve</button>
       }
-    </div >
+      <button
+        onClick={() => props.handleDeletePost(props.post._id)}
+      >Delete</button>
+    </div>
   )
 }
 

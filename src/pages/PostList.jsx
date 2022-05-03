@@ -45,6 +45,7 @@ const PostList = (props) => {
             key={post._id}
             user={props.user}
             markPostResolved={markPostResolved}
+            handleDeletePost={handleDeletePost}
           />
         })
       }
